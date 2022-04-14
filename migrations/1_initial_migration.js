@@ -1,6 +1,7 @@
-const Bridge = artifacts.require("Bridge");
-const ReflexBridge = artifacts.require("ReflexBridge");
-module.exports = function (deployer) {
-  	deployer.deploy(Bridge);
-  	deployer.deploy(ReflexBridge);
+const ReflexToken = artifacts.require("ReflexToken")
+const Bridge = artifacts.require("Bridge")
+
+module.exports = async function (deployer) {
+	await deployer.deploy(ReflexToken)
+	await deployer.deploy(Bridge, ReflexToken.address)
 };

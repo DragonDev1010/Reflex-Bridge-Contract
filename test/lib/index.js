@@ -57,10 +57,7 @@ module.exports = async function getRelayRequest (sender, receiver, token, amount
     const domain = keccak256(['uint256', 'address', 'string'], [dstChainId, contractAddress, 'Relay']);
     const signedData = pack(['bytes32', 'bytes'], [domain, relayBytes]);
     const signedDataHash = keccak256(['bytes'], [signedData]);
-    const signerAddrs = [];
-    for (let i = 0; i < signers.length; i++) {
-        signerAddrs.push(signers[i].address);
-    }
+    
     signers.sort((a, b) => (a.address.toLowerCase() > b.address.toLowerCase() ? 1 : -1));
     const sigs = await calculateSignatures(signers, hex2Bytes(signedDataHash));
     return {relayBytes, sigs}

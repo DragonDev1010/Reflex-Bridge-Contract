@@ -9,9 +9,9 @@ const usdcAddr = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
 const Bridge = artifacts.require('./Bridge.sol')
 var getRelayRequest = require('./lib/index.js');
 const { Wallet } = require('@ethersproject/wallet');
+require('dotenv').config();
 
 contract('Bridge Contract', (accounts) => {
-    
     let tx, bridge
     let srcXId, usdcAmount
     let relayReq
@@ -20,9 +20,9 @@ contract('Bridge Contract', (accounts) => {
     const usdcContract = new web3.eth.Contract(usdcABI, usdcAddr)
     
     let usdcHolder = "0xcffad3200574698b78f32232aa9d63eabd290703"
-    let signers = [accounts[9], accounts[8], accounts[7]]
-    signers.sort((a, b) => (a.toLowerCase() > b.toLowerCase() ? 1 : -1));
-    const powers = [9, 8, 7]
+    let signers = [process.env.ADDR]
+    // signers.sort((a, b) => (a.toLowerCase() > b.toLowerCase() ? 1 : -1));
+    const powers = [10]
 
     before(async() => {
         bridge = await Bridge.deployed()
@@ -45,7 +45,7 @@ contract('Bridge Contract', (accounts) => {
     })
 
     it("get relay request", async() => {
-        const privateKeys = ["0x3be88c2e3c4dd1c30a1c47228cfb1bc86333f57120ce38638e5e0a82b91e1ea7", "0xbfd2612398829279a28cdc9af678f5afec652cdc5b324e64a57815d5bcd7c143", "0x42631f3f6434de933bc46de4cf26be8c673480f34d71eab7e2769cc45272db59"]
+        const privateKeys = [process.env.PRIVATE]
         
         let signers1 = []
 
