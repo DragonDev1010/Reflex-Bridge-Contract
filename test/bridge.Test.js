@@ -8,7 +8,7 @@ contract("bridge contract", (accounts) => {
     let signer, signerPrivateKey
 
     signer = accounts[9]
-    signerPrivateKey = "0xbefca52d2b9467ac9e1f7d0410ad836009fe53673ea2db32340c6b6b2a669161"
+    signerPrivateKey = "0x6ac5f8cead9baf2c7990e41fa416a61973aca98ed7ecc9065ec4907d03d97478"
 
     before(async() => {
         bridge = await Bridge.deployed()
