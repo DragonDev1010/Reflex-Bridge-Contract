@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Bridge is Ownable {
-    IERC20 zamToken;
+    IERC20 token;
     address public signer;
     mapping(bytes32 => bool) public executedXId;
 
@@ -13,11 +13,11 @@ contract Bridge is Ownable {
     event Unlocked(uint256 amount);
 
     constructor(address tokenAddr) {
-        zamToken = IERC20(tokenAddr);
+        token = IERC20(tokenAddr);
     }
 
     function lock(uint256 amount) public {
-        zamToken.transferFrom(msg.sender, address(this), amount);
+        token.transferFrom(msg.sender, address(this), amount);
         bytes32 transferId = keccak256(abi.encodePacked(msg.sender, amount));
         emit Locked(transferId);
     }
@@ -31,7 +31,7 @@ contract Bridge is Ownable {
         uint256 amount;
         address sender;
         ( srcXId, amount, sender ) = _parseABI(unlockRequest);
-        zamToken.transfer(msg.sender, amount);
+        token.transfer(msg.sender, amount);
         executedXId[xId] = true;
     }
 
